@@ -1,0 +1,24 @@
+apiVersion: kubevault.com/v1alpha2
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  allowedSecretEngines:
+    namespaces:
+      from: All
+  version: 1.12.1
+  replicas: 3
+  backend:
+    raft:
+      storage:
+        storageClassName: "standard"
+        resources:
+          requests:
+            storage: 1Gi
+  unsealer:
+    secretShares: 5
+    secretThreshold: 3
+    mode:
+      kubernetesSecret:
+        secretName: vault-keys
