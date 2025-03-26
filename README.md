@@ -1,6 +1,7 @@
-# Deploy and Use Virtual-Secrets
+# Deploy and Use VirtualSecrets
 
 ## Install KubeVault
+
 ```bash
 helm install kubevault oci://ghcr.io/appscode-charts/kubevault \
   --version v2025.2.10 \
@@ -9,7 +10,8 @@ helm install kubevault oci://ghcr.io/appscode-charts/kubevault \
   --wait --burst-limit=10000 --debug
 ```
 
-## Deploy VaultServe
+## Deploy VaultServer
+
 ```yaml
 apiVersion: kubevault.com/v1alpha2
 kind: VaultServer
@@ -41,6 +43,7 @@ $ kubectl apply -f manifests/vault-server.yaml
 ```
 
 ## Provide permission to Virtual-Secrets Server
+
 We will connect to the Vault by using Vault CLI. Therefore, we need to export the necessary environment variables and port-forward the service.
 ```bash
 $ export VAULT_ADDR=http://127.0.0.1:8200
@@ -83,6 +86,7 @@ $ vault write auth/kubernetes/role/virtual-secrets-role \
 ```
 
 ## Create SecretSource
+
 ```yaml
 apiVersion: config.virtual-secrets.dev/v1alpha1
 kind: SecretSource
@@ -97,7 +101,8 @@ spec:
 $ kubectl apply -f manifests/secret-source.yaml
 ```
 
-## Create Virtual-Secret:
+## Create Virtual-Secret
+
 ```yaml
 apiVersion: virtual-secrets.dev/v1alpha1
 kind: Secret
@@ -113,7 +118,8 @@ secretSourceName: vault
 $ kubectl apply -f manifests/virtual-secret.yaml
 ```
 
-## Deploy Postgres with Virtual-Secret:
+## Deploy Postgres with Virtual-Secret
+
 ```bash
 apiVersion: kubedb.com/v1
 kind: Postgres
